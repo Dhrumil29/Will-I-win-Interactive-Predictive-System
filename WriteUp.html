@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Australian Open Tournament Stats</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel='stylesheet' href='Write%20Up.css'>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="visualization.html#ace_svg">Interactive Visualizations</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li ><a href="visualization.html">Winners Prediction Probability</a></li>
+                <li><a href="bonus.html">Bonus Task</a></li>
+                <li><a href="WriteUp.html"class = "active">Write-Up</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div id="div1" style="text-align: center; background-color: white; margin-right: 120px; margin-left: 120px; color:black">
+    <h1>Australian Open Tournament Statistics<br></h1>
+    <h2 style=" margin-right: 50px; margin-left: 50px">What is your chance to win the match?</h2>
+    <h3 style=" margin-right: 100px; margin-left: 100px">Assignment 2 Write-Up</h3>
+    <br>
+    <p style="font-size:18px; text-align:justify">Data Analysis:<br>
+        In the given data, there are 37 columns and 1387 matches data. Every match data has the statistic of winner and loser.
+        For data analysis and data cleaning part, python is used. Various libraries of python like Numpy, Pandas, matplotlib and seaborn are used for the data analysis and feature selection.
+
+        <br><br>As every match has winner and loser statistics, those can be used to determine the most important features to win a match.
+        Using matplotlib and seaboarn, co relation between every feature was obtained. In addition to that, linear regression was also done on the various combination of features. By analyzing the result, eight most important features were selected.
+        <br><br>
+        Columns which are selected as most important features are:
+        <br>
+        ACE
+        &nbsp;&nbsp;&nbsp;&nbsp;RETURN
+        &nbsp;&nbsp;&nbsp;&nbsp;BREAK
+        &nbsp;&nbsp;&nbsp;&nbsp;DOUBLE
+        &nbsp;&nbsp;&nbsp;&nbsp;ERROR
+        &nbsp;&nbsp;&nbsp;&nbsp;FIRSTPOINTWON
+        &nbsp;&nbsp;&nbsp;&nbsp;SECONDPOINTWON
+        &nbsp;&nbsp;&nbsp;&nbsp;TOTAL
+        <br>
+        Among these columns &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RETURN, BREAK, EROOR  &nbsp;&nbsp;&nbsp; have missing data.
+        <br>
+        As the probability for winning the match with every feature is to be calculated, if missing value is replaced with the mean value than also it will not affect the result much. So Missing values are replaced with mean values.
+        With the use of <b>linear regression, weight of each feature to contribute in the winning is decided.</b>
+        <br><br>
+    <p style="font-size:18px; text-align:justify">
+        Now, for each feature, <b>frequency of the feature in a specific range is calculated. </b>Range is decided using maximum and minimum value of the feature and by dividing with the total number of matches will give the probability for each range.
+        So, if FirstPointWon feature has maximum possible value is 100% and minimum possible value is 0% than frequency for the ranges 0-20, 20-40, 40-60, 60-80, 80-100 are calculated and dividing that with the total number of matches will give probability for each range. Same way, the all the probabilities for all the features are calculated.
+</p>
+    </p>
+
+    <p style="font-size:18px; text-align:justify">
+        Story: <br> In any tennis match, there are so many factors like ace, break, return, etc. which affects the result of the tennis match. But the exact effect of each feature and effect on winning for a given feature value is very difficult task.<br>
+        With this story, above issue is addressed and <b> winning probability is calculated with taking input from the user for each feature.</b>
+    </p>
+    <p style="font-size:18px;text-align:justify">
+        Interactive Visualizations <br>For taking input, slider is implemented as it is very intuitive and easily draggable.
+        <br>For showing analysis of probability for each feature with weight, aster graph is used. <br>Aster graph is basically pie chart with different weight to every feature so it can easily represent the feature weight and probability of that feature.
+    </p>
+    <p style="font-size:18px;font-weight: bold; text-align: justify">
+        -Dhrumil Shah<br>
+        1213096220</p>
+
+</div>
+
+
+</body>
+</html>

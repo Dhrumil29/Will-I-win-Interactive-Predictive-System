@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<meta charset='utf-8'>
+<html>
+  <head>
+  <style>
+ ul {     list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #111;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+body{
+  background: -webkit-linear-gradient(left, #25c481, #25b7c4);
+  background: linear-gradient(to right, #25c481, #25b7c4);
+  font-family: 'Roboto', sans-serif;
+}
+  </style>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<style>
+	.axis path,
+.axis line {
+  fill: none;
+	stroke: black;
+	shape-rendering: crispEdges;
+}
+.axis text {
+	font-family: sans-serif;
+	font-size: 11px;
+}
+	</style>
+  </head>
+  <body>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" class = "active" href="visualization.html">Interactive Visualizations</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li ><a href="visualization.html#ace_svg">Winners Prediction Probability</a></li>
+          <li><a href="bonus.html"class = "active">Bonus Task</a></li>
+          <li><a href="WriteUp.html" >Write-Up</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <script>
+	d3.csv('bonus.csv', function (data) {
+  // Variables
+  var body = d3.select('body')
+	var margin = { top: 50, right: 50, bottom: 50, left: 50 }
+	var h = 500 - margin.top - margin.bottom
+	var w = 500 - margin.left - margin.right
+	// Scales
+  var colorScale = d3.scale.category20()
+  var xScale = d3.scale.linear()
+    .domain([2003,2015])
+    .range([0,w])
+  var yScale = d3.scale.linear()
+    .domain([190,220])
+    .range([h,0])
+	// SVG
+	var svg = body.append('svg')
+	    .attr('height',h + margin.top + margin.bottom)
+	    .attr('width',w + margin.left + margin.right)
+	  .append('g')
+	    .attr('transform','translate(' + margin.left + ',' + margin.top + ')')
+	// X-axis
+	var xAxis = d3.svg.axis()
+	  .scale(xScale)
+	  .ticks(12)
+	  .orient('bottom')
+  // Y-axis
+	var yAxis = d3.svg.axis()
+	  .scale(yScale)
+	  .ticks(20)
+	  .orient('left')
+  // Circles
+  var circles = svg.selectAll('circle')
+      .data(data)
+      .enter()
+    .append('circle')
+      .attr('cx',function (d) { return xScale(d.fS) })
+      .attr('cy',function (d) { return yScale(d.year) })
+      .attr('r','10')
+      .attr('stroke','black')
+      .attr('stroke-width',1)
+      .attr('fill',function (d,i) { return "red"; })
+      .on('mouseover', function () {
+        d3.select(this)
+          .transition()
+          .duration(500)
+          .attr('r',20)
+          .attr('stroke-width',3)
+      })
+      .on('mouseout', function () {
+        d3.select(this)
+          .transition()
+          .duration(500)
+          .attr('r',10)
+          .attr('stroke-width',1)
+      })
+    .append('title') // Tooltip
+      .text(function (d) { return d.variable +
+                           '\n Fastest Serve (%): ' + (d.year) +
+                           '\n Year: ' + (d.fS) })
+  // X-axis
+  svg.append('g')
+      .attr('class','axis')
+      .attr('transform', 'translate(0,' + h + ')')
+      .call(xAxis)
+    .append('text') // X-axis Label
+      .attr('class','label')
+      .attr('y',-10)
+      .attr('x',w)
+      .attr('dy','.71em')
+      .style('text-anchor','end')
+      .text('Year');
+  // Y-axis
+  svg.append('g')
+      .attr('class', 'axis')
+      .call(yAxis)
+    .append('text') // y-axis Label
+      .attr('class','label')
+      .attr('transform','rotate(-90)')
+      .attr('x',0)
+      .attr('y',5)
+      .attr('dy','.71em')
+      .style('text-anchor','end')
+      .text('Fastest Serve (%)')
+})
+	</script>
+
+  </body>
+</html>
